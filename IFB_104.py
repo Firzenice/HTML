@@ -78,22 +78,29 @@ file_name = 'invoice.html'
 html_template = """<!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <title>Electronic Heaven</title>
-  </head>
+</head>
 
-  <style> body {background-color:lightgrey} </style>
+<style> body {background-color:lightgrey} </style>
 
-  <body>
+<body>
 
-      <h1 align='center'> Electronic Heaven </h1>
+<table style="width:100%">
 
-      <p align='center'><img src="https://t3.ftcdn.net/jpg/01/04/99/88/500_F_104998865_ZT6yvRZdRZeblGbbo5QycRFO9Gg5W4qv.jpg"</p>
+    <tr>
+        <td align='center'>Electronic Heaven</td>
+    </tr>
 
+    <tr>
+        <td align='center'><img src="https://t3.ftcdn.net/jpg/01/04/99/88/500_F_104998865_ZT6yvRZdRZeblGbbo5QycRFO9Gg5W4qv.jpg"</td>
+    </tr>
+
+</table>
+    
+
+      
   
-  </body>
-
-</html>
 """
 
 ##print apple_contents
@@ -109,98 +116,83 @@ def regular_express(beginning_pat, end_pat, in_text, num):
 ##apple_items = findall('<entry>([\s\S]*?)<\/entry>', apple_contents)
 ##print apple_items[0]
 
-master_items = []
+master_items1 = []
 
 apple_store = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml"
 
 apple_contents = urlopen(apple_store).read()
 
-apple_items = regular_express('<entry>', '<\/entry>', apple_contents, 2)
-print apple_items[0]
+apple_items = regular_express('<entry>', '<\/entry>', apple_contents, 5)
+#print apple_items[0]
 
 
 for each in apple_items:
   title = regular_express('<title>', '<\/title>', each, 1)
   price = regular_express('currency="USD">\$', '<\/im:', each, 1)
   image = regular_express('<im:image height="55">','<\/im:image>', each, 1)
-  master_items.append ([title,price,image])
+  master_items1.append ([title,price,image])
   
 
 
 
-
-
-
-
-headphones_store = "https://www.hifiheadphones.ca/rss.php?action=featuredproducts&type=rss"
-headphones_contents = urlopen(headphones_store).read()
-
-headphones_items = regular_express('<item>', '<\/item>', headphones_contents, 2)
-print headphones_items[0]
-
-for each in headphones_items:
-  title = regular_express('<title>', '<\/title>', each, 1)
-  price = regular_express('<isc:price>', '<\/isc:price>', each, 1)
-  image = regular_express('<isc:image>', '<\/isc:image>', each, 1)
-  master_items.append ([title,price,image])
-
-
-
-
-
-
-stereophone_store = "https://www.stereophonic.com.au/rss.php?action=featuredproducts&type=rss"
-stereophone_contents = urlopen(stereophone_store).read()
-
-stereophone_items = regular_express('<item>', '\/item', stereophone_contents, 2)
-print stereophone_items[0]
-
-for each in stereophone_items:
-  title = regular_express('<title>', '<\/title>', each, 1)
-  price = regular_express('<isc:price>', '<\/isc:price>', each, 1)
-  image = regular_express('<isc:image>', '<\/isc:image>', each, 1)
-  master_items.append ([title,price,image])
-
-
-
-
-
-
-
-  # print each
-# print apple_items[0]
-
-##master_items = []
-
-##for single in apple_items:
-##    title = regular_express('<title>', '<\/title>', single, 1)
-##    print title
-##    price = float(regular_express('currency="USD">\$', '<\/im:',single, 1)[0])
-##    image = regular_express('<im:image height="55">','<\/im:image>',single, 1)[0]
-##    master_items.append ([title,price,image])
-##print master_items
-
-
-
-##    master_items = []
-##
-##
-##
-##
-##
-##    apple_items = findall('<entry>([\s\S]*?)<\/entry>', apple_contents)
-##
-##    for single in apple_items:
-##        title = regular_express('<title>', '<\/title>', single, 1)[0]
-##        price = float(findall('currency="USD">\$([\s\S]*?)<\/im:',single)[0])
-##        image = findall('<im:image height="55">([\s\S]*?)<\/im:image>',single)[0]
-####    description = findall('<im:collection>([\s\S]*?)<\/im:collection>', single)
-##        master_items.append ([title,price,image])
-##
-##    if beginning == "title = findall":
-##        print beginning
+doc = ""
+for items in range(5):
+    doc = doc + "<tr>" + "<td>" + master_items1[items][0][0] + "</td>" + "</tr>" + "</br>" + "</br>" + "\n"
+    doc = doc + "<tr>" + "<td>" + master_items1[items][1][0]*1.33 + "</td>" + "</tr>" + "</br>" + "</br>" + "\n"
+    doc = doc + "<tr>" + "<td>"+ "<img src=" + master_items1[items][2][0] + ">" + "</td>" + "</tr>" + "\n"
     
+
+
+##headphones_store = "https://www.hifiheadphones.ca/rss.php?action=featuredproducts&type=rss"
+##headphones_contents = urlopen(headphones_store).read()
+##
+##headphones_items = regular_express('<item>', '<\/item>', headphones_contents, 2)
+###print headphones_items[0]
+##
+##for each in headphones_items:
+##  title = regular_express('<title>', '<\/title>', each, 1)
+##  price = regular_express('<isc:price>', '<\/isc:price>', each, 1)
+##  image = regular_express('<isc:image>', '<\/isc:image>', each, 1)
+##  master_items.append ([title,price,image])
+##
+##
+##
+##
+##
+##
+##stereophone_store = "https://www.stereophonic.com.au/rss.php?action=featuredproducts&type=rss"
+##stereophone_contents = urlopen(stereophone_store).read()
+##
+##stereophone_items = regular_express('<item>', '\/item', stereophone_contents, 2)
+###print stereophone_items[0]
+##
+##for each in stereophone_items:
+##  title = regular_express('<title>', '<\/title>', each, 1)
+##  price = regular_express('<isc:price>', '<\/isc:price>', each, 1)
+##  image = regular_express('<isc:image>', '<\/isc:image>', each, 1)
+##  master_items.append ([title,price,image])
+
+
+
+
+
     
+  
+
+    
+bottom_html = "</body>" + "\n" + "</html>"
+
+final = html_template + doc + bottom_html
+html_file = open(file_name, 'w')
+html_file.write(final)
+html_file.close()
+
+
+
+
+
+
+     
 
 ##print master_items[0][1]*2
 
@@ -232,9 +224,9 @@ def downloading():
 # Upadating the label
 def clear_label():
     download_status['text'] = "Done"
-    html_file = open(file_name, 'w')
-    html_file.write(html_template)
-    html_file.close()
+##    html_file = open(file_name, 'w')
+##    html_file.write(html_template)
+##    html_file.close()
 
     
 
